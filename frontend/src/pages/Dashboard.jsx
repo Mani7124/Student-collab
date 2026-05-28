@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 import PostCard from '../components/PostCard';
 import Sidebar from '../components/Sidebar';
+import api from '../api';
 
 export default function Dashboard() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    axios.get(`${API}/api/posts/`)
+    api.get('/api/posts/')
       .then(res => setPosts(res.data))
       .catch(() => setPosts([]));
   }, []);

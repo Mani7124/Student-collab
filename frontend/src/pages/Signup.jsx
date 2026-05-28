@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -14,7 +13,7 @@ export default function Signup() {
     e.preventDefault();
     setError('');
     try {
-      await axios.post(`${API}/api/auth/signup`, { email, password, name });
+      await api.post('/api/auth/signup', { email, password, name });
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');

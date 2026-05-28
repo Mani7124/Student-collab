@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+import api from '../api';
 
 export default function Profile() {
   const [profile, setProfile] = useState({});
@@ -9,7 +8,7 @@ export default function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    axios.get(`${API}/api/profile/`, { params: { email: user?.email } })
+    api.get('/api/profile/', { params: { email: user?.email } })
       .then(res => {
         setProfile(res.data);
         setName(res.data.name || '');
@@ -19,7 +18,7 @@ export default function Profile() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${API}/api/profile/`, { email: user?.email, name });
+      await api.put('/api/profile/', { email: user?.email, name });
       setMessage('Profile updated');
     } catch {
       setMessage('Update failed');

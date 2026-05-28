@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 import { useParams, useNavigate } from 'react-router-dom';
+import api from '../api';
 
 export default function RegisterPost() {
   const { id } = useParams();
@@ -11,7 +10,7 @@ export default function RegisterPost() {
 
   const handleRegister = async () => {
     try {
-      await axios.post(`${API}/api/posts/${id}/register`, { email: user?.email });
+      await api.post(`/api/posts/${id}/register`, { email: user?.email });
       setMessage('Registered successfully!');
       setTimeout(() => navigate('/'), 1000);
     } catch (err) {

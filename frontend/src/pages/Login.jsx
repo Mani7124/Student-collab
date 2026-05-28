@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,7 +12,7 @@ export default function Login() {
     e.preventDefault();
     setError('');
     try {
-      const res = await axios.post(`${API}/api/auth/login`, { email, password });
+      const res = await api.post('/api/auth/login', { email, password });
       localStorage.setItem('user', JSON.stringify(res.data.user));
       navigate('/');
     } catch (err) {
