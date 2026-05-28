@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreatePost() {
@@ -13,7 +13,7 @@ export default function CreatePost() {
     e.preventDefault();
     setError('');
     try {
-      await axios.post('http://localhost:5000/api/posts/', {
+      await api.post('/api/posts/', {
         title,
         description,
         created_by: user?.email || ''
